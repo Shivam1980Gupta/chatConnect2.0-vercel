@@ -7,12 +7,13 @@ const messageRoutes = require("./routes/messages");
 const app = express();
 const socket = require("socket.io");
 require("dotenv").config();
-
+const MONGO_URL = "mongodb+srv://shivam1980gupta:Shivam9540@cluster0.poyql0e.mongodb.net/?retryWrites=true&w=majority";
+const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 mongoose.set("strictQuery", false);
 mongoose
-  .connect(process.env.MONGO_URL, {
+  .connect(MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -26,8 +27,8 @@ mongoose
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-const server = app.listen(process.env.PORT, () =>
-  console.log(`Server started on ${process.env.PORT}`)
+const server = app.listen(PORT, () =>
+  console.log(`Server started on ${PORT}`)
 );
 const io = socket(server, {
   cors: {
